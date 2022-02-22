@@ -9,7 +9,7 @@ let showResults = document.getElementById('display-results-list');
 
 //Global Variables
 let allProducts = [];
-let votesAllowed = 0;
+let votesAllowed = 25;
 
 //Constructor
 
@@ -89,7 +89,7 @@ console.log(renderImage);
 //Event Handler
 
 function handleClick(event) {
-  votesAllowed++;
+  votesAllowed--;
 
   let imgClicked = event.target.alt;
 
@@ -100,13 +100,13 @@ function handleClick(event) {
   }
   renderImage();
 
-  if (votesAllowed === 25) {
+  if (votesAllowed === 0) {
     myContainer.removeEventListener('click', handleClick);
   }
 }
 
 function handleShowResults(event) { //eslint-disable-line
-  if (votesAllowed === 25) {
+  if (votesAllowed === 0) {
     for (let i = 0; i < allProducts.length; i++) {
       let li = document.createElement('li');
       li.textContent = `${allProducts[i].name} was viewed ${allProducts[i].views} times and was voted for ${allProducts[i].clicks} times.`;
