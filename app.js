@@ -96,7 +96,7 @@ function renderImage() {
 
 renderImage();
 
-console.log(renderImage);
+
 
 //Event Handler
 
@@ -155,6 +155,7 @@ function renderChart() {
       }]
     },
     options: {
+      indexAxis: 'y',
       scales: {
         y: {
           beginAtZero: true
