@@ -163,7 +163,7 @@ function renderChart() {
     }
   };
 
-  const myChart = new Chart(ctx, chartObject);
+  const myChart = new Chart(ctx, chartObject); //eslint-disable-line
 
 
 
