@@ -9,6 +9,10 @@ let thirdImage = document.getElementById('third');
 //Canvas Element for chart.js
 let ctx = document.getElementById('my-chart');
 
+let retrievedProduct = localStorage.getItem('products');
+
+let parsedProduct = JSON.parse(retrievedProduct);
+
 
 //Global Variables
 let allProducts = [];
@@ -30,26 +34,32 @@ function Product(name, fileExtension = 'jpg') {
   allProducts.push(this);
 }
 
-new Product('bag', 'jpg');
-new Product('banana', 'jpg');
-new Product('bathroom', 'jpg');
-new Product('boots', 'jpg');
-new Product('breakfast', 'jpg');
-new Product('bubblegum', 'jpg');
-new Product('chair', 'jpg');
-new Product('cthulhu', 'jpg');
-new Product('dog-duck', 'jpg');
-new Product('dragon', 'jpg');
-new Product('pen', 'jpg');
-new Product('pet-sweep', 'jpg');
-new Product('scissors', 'jpg');
-new Product('shark', 'jpg');
-new Product('sweep', 'png');
-new Product('tauntaun', 'jpg');
-new Product('unicorn', 'jpg');
-new Product('water-can', 'jpg');
-new Product('wine-glass', 'jpg');
+if (retrievedProduct) {
+  allProducts = parsedProduct;
+}
+else {
 
+  new Product('bag', 'jpg');
+  new Product('banana', 'jpg');
+  new Product('bathroom', 'jpg');
+  new Product('boots', 'jpg');
+  new Product('breakfast', 'jpg');
+  new Product('bubblegum', 'jpg');
+  new Product('chair', 'jpg');
+  new Product('cthulhu', 'jpg');
+  new Product('dog-duck', 'jpg');
+  new Product('dragon', 'jpg');
+  new Product('pen', 'jpg');
+  new Product('pet-sweep', 'jpg');
+  new Product('scissors', 'jpg');
+  new Product('shark', 'jpg');
+  new Product('sweep', 'png');
+  new Product('tauntaun', 'jpg');
+  new Product('unicorn', 'jpg');
+  new Product('water-can', 'jpg');
+  new Product('wine-glass', 'jpg');
+
+}
 console.log(allProducts);
 
 //random image helper function
@@ -78,7 +88,7 @@ function renderImage() {
   lastImage[0] = firstRandomImage;
   lastImage[1] = secondRandomImage;
   lastImage[2] = thirdRandomImage;
-  console.log(lastImage);
+  //console.log(lastImage);
 
   firstImage.src = allProducts[firstRandomImage].src;
   firstImage.alt = allProducts[firstRandomImage].name;
@@ -115,6 +125,16 @@ function handleClick(event) {
   if (votesAllowed === 0) {
     myContainer.removeEventListener('click', handleClick);
     renderChart();
+
+    //Local Storage
+
+
+    //step 1: Stringify our data
+    let stringifiedProduct = JSON.stringify(allProducts);
+
+
+    //step 2: Set the item into local storage
+    localStorage.setItem('products', stringifiedProduct);
   }
 }
 
@@ -170,12 +190,15 @@ function renderChart() {
 
 }
 
-
-
-
-
-
 myContainer.addEventListener('click', handleClick);
+
+
+
+
+
+
+
+
 // function handleShowResults(event) { //eslint-disable-line
 //   if (votesAllowed === 0) {
 //     for (let i = 0; i < allProducts.length; i++) {
